@@ -38,30 +38,29 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-  const result = ""; // result string
-  const space = "**********"; //space string
+  let result = ""; // хранит преобразованную строку
+  let space = "**********";
   for (i = 0; i < expr.length; ) {
-    let symbols = expr.slice(i, i + 10); // get 10 symbols
-    let morse = ""; // for code
-    if (symbols == space) result += " ";
+    str = expr.slice(i, i + 10); // взять десять символов из строки
+    let morseCode = ""; // хранит код Морзе
+    if (str == space) result += " ";
     else {
-      for (i = 0; i < symbols.length; ) {
-        let el = symbols.slice(i, i + 2); // get 2 symbols
-        if (el === 10) {
-          //check 10
-          morse += ".";
-        } else if (el === 11) {
-          //check 11
-          morse += "-";
+      for (n = 0; n < str.length; ) {
+        let el = str.slice(n, n + 2); // взять два символа
+        switch (el) {
+          case "10":
+            morseCode += ".";
+            break;
+          case "11":
+            morseCode += "-";
+            break;
         }
-        i = i + 2;
+        n = n + 2;
       }
       for (let key in MORSE_TABLE) {
-        //get key
-
-        if (key == morse) {
-          //check key
-          result += MORSE_TABLE[key]; //write key
+        // преобразовать код в букву
+        if (key == morseCode) {
+          result += MORSE_TABLE[key];
         }
       }
     }
